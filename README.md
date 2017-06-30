@@ -11,6 +11,19 @@ includes:
 * an instance of dnsmasq that serves up public DNS in addition to the contents of the containers
   `/etc/hosts` and `/etc/dnsmasq.d/extra-hosts`
 
+## Motivation
+
+When trying to develop on a Chromebook, I didn't like three things:
+
+1. I find it frustratingly slow to use a full remote desktop solution.
+1. Tools exist for remote development (such as Eclipse Che) but they work best on a private
+   network.
+1. It it very difficult to do the equivalent of setting a host file on a ChromeOS system.
+
+So I decided that the best way to accomplish this was to create an Docker image for OpenVPN that I
+could run on any server I had access to (a cloud VPN, a headless machine in a bookshelf, etc), that
+provided its own DNS service.
+
 ## Project status
 
 _This is not an official Google product._
