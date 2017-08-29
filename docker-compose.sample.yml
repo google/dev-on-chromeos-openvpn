@@ -34,9 +34,10 @@ services:
       - ./runtime/etc/openvpn:/etc/openvpn
       - ./runtime/etc/letsencrypt:/etc/letsencrypt
     environment:
-      - ADMIN_EMAIL
-      - PUBLIC_HOSTNAME
-      - CERTBOT_STAGING_FLAG
+      - ADMIN_EMAIL=[YOUR EMAIL HERE - for Let's Encrypt]
+      - PUBLIC_HOSTNAME=[YOUR HOSTNAME HERE]
+      # Change this to staging to test Let's Encrypt
+      - CERTBOT_STAGING_FLAG=staging
     secrets:
       - ca_master_password
 # Add your services here
