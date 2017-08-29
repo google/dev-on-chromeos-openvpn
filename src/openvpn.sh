@@ -50,18 +50,19 @@ if [[ ${1-''} != "" ]]; then
   fi
 fi
 
+# Log the commands and the output
+set -x
+if [[ ${CERTBOT_STAGING_FLAG-'--staging'} == "--staging" ]]; then
+  CERTBOT_CONFIG=/etc/letsencrypt/staging
+else
+  CERTBOT_CONFIG=/etc/letsencrypt
+fi
+
 if [[ -f /etc/openvpn/setup-done ]]; then
-  echo "Using existing setup"
+  echo "Using existing setup - checking for cert renewal"
+  certbot renew --config-dir $CERTBOT_CONFIG
 else
   echo "Running first-time setup"
-  # Log the commands and the output
-  set -x
-  if [[ ${CERTBOT_STAGING_FLAG-'--staging'} == "--staging" ]]; then
-    CERTBOT_CONFIG=/etc/letsencrypt/staging
-  else
-    CERTBOT_CONFIG=/etc/letsencrypt
-  fi
-
   # Set up the cert and keys
   certbot certonly --standalone --non-interactive --config-dir $CERTBOT_CONFIG --agree-tos ${CERTBOT_STAGING_FLAG-'--staging'} --email ${ADMIN_EMAIL} -d ${PUBLIC_HOSTNAME}
 
